@@ -23,6 +23,7 @@ user4 = Account_Info("Meta04", "100Pr@@f7&62", "200000", "626604", "Amish", "MC"
 userList = [user1, user2, user3, user4]
 def userLogin():
 	currentAttempts = 0
+	print("Welcome to the M-Corporation Banking system. Please Log In.")
 
 	while currentAttempts < 3 :
 		userEntry = input("Username: ")
@@ -34,12 +35,19 @@ def userLogin():
 				   print(f"Welcome, Commander {user.firstName}. How may we assist you today?")
 				else:
 					print(f"Login successful. Welcome, {user.fullName}.")
-				return True
-			else:
+				return user
 
+		currentAttempts += 1
+		print("Error: Invalid username or password. Please try again.")
+	
+	print("Extraneous logins detecting. Security closure engaged.")
+	return None
 
 def main():
-
+	currentUser = userLogin()
+	if currentUser:
+		while True:
+			print(f"Your current balance is {currentUser.currentBalance")
 
 if __name__ == "__main__":
     main()
