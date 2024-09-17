@@ -34,8 +34,7 @@ def userLogin():
 		for user in userList:
 			if user.userName == userEntry and user.password == passEntry :
 				if user.userName == "Mman777mw":
-				   print(f"Welcome, Commander {user.firstName}. How may we assist you today?")
-				   
+					print(f"Welcome, Commander {user.firstName}. How may we assist you today?")
 				else:
 					print(f"Login successful. Welcome, {user.fullName}.")
 
@@ -58,14 +57,14 @@ def amountVerify(amountEnt):
 			while True:
 				newAmount = input("Please enter the correct amount: ").strip()
 				try:
-					amountEnt = int(newAmount)
+					amountEnt = float(newAmount)
 					break
 				except ValueError:
 					print("Invalid amount. Please enter an integer.")
 		else:
 			print(f"Invalid response.\nPlease enter Yes or No.")
 
-def negBalChekcer(account, amount):
+def negBalChecker(account, amount):
 	while account.currentBalance - amount < 0:
 		print(f"Error, current amount will result in negative balance.")
 		amount = float(input("Please enter a new amount: "))
@@ -76,7 +75,7 @@ def withdrawFunct(account):
 	startingBal = account.currentBalance
 	amount = float(input("Please enter the amount you would like to withdraw: "))
 	amount = amountVerify(amount)
-	amount = negBalChekcer(account, amount)
+	amount = negBalChecker(account, amount)
 	account.currentBalance -= amount
 	print(f"Your starting balance is {startingBal} and the ending balance is now {account.currentBalance} M-Corp. Credits.")
 
@@ -85,7 +84,7 @@ def transFunct(curAccount, toAccount):
 	startingBalance = curAccount.currentBalance
 	amount = float(input(f"Please enter amount for transfer: "))
 	amount = amountVerify(amount)
-	amount = negBalChekcer(curAccount, amount)
+	amount = negBalChecker(curAccount, amount)
 	print(f"Transfer processing...")
 	curAccount.currentBalance -= amount
 	toAccount.currentBalance += amount
@@ -118,8 +117,7 @@ def main():
 
 			elif opSelect == "transfer":
 				targetAccountNum = input("Please enter the account you'd like to transfer funds to: ")
-
-				tarAccount= None
+				recAccount = None
 				for accountNums in userList:
 					if accountNums.accountNum == targetAccountNum:
 						recAccount = accountNums
@@ -129,8 +127,8 @@ def main():
 					transFunct(currentUser, recAccount)
 
 					currentOps += 1
-
-
+				else:
+					print("Error: Target account not found.")
 			elif opSelect == "exit":
 				print("Logout successful. Have a nice day.")
 				break
